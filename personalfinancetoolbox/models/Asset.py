@@ -1,7 +1,5 @@
-from dateutil.relativedelta import relativedelta
-from .CombinedAsset import CombinedAsset
-from .ValueHolding import ValueHolding
-import numpy as np
+from personalfinancetoolbox.models.CombinedAsset import CombinedAsset
+from personalfinancetoolbox.models.ValueHolding import ValueHolding
 
 
 class Asset(ValueHolding):
@@ -39,13 +37,13 @@ class Asset(ValueHolding):
         nearest_datetime = min([datetime for datetime in self.value.keys() if datetime >= at_datetime])
         return self.value[nearest_datetime], nearest_datetime
 
-    def __radd__(self, other):
+    def __add__(self, other):
         if type(other) == CombinedAsset:
             return CombinedAsset([self] + other.assets)
         elif issubclass(type(other), Asset):
             print(type(CombinedAsset))
             return CombinedAsset([self, other])
+        else:
+            raise NotImplementedError
 
-    def __add__(self, other):
-        return self.__radd__(other)
-
+    __radd__ = __add__

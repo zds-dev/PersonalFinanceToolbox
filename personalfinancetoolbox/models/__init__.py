@@ -7,4 +7,5 @@ from .ValueHolding import ValueHolding
 from .Asset import Asset
 from .CombinedAsset import CombinedAsset
 from .InterestAccruingAsset import YearlyInterestAccruing
-from .modify_assets_helpers import *
+
+# Import helper functions

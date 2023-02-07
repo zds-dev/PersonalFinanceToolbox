@@ -1,7 +1,4 @@
-import numpy as np
-from dateutil.relativedelta import relativedelta
-import models.Asset
-from .ValueHolding import ValueHolding
+from personalfinancetoolbox.models.ValueHolding import ValueHolding
 
 
 class CombinedAsset(ValueHolding):
@@ -14,8 +11,8 @@ class CombinedAsset(ValueHolding):
     def __radd__(self, other):
         if type(other) == CombinedAsset:
             return CombinedAsset(self.assets + other.assets)
-        elif issubclass(type(other), models.Asset):
-            return CombinedAsset(self.assets + [other])
+        else:
+            return NotImplemented
 
     def __add__(self, other):
         return self.__radd__(other)

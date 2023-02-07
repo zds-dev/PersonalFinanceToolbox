@@ -41,7 +41,6 @@ class Asset(ValueHolding):
         if type(other) == CombinedAsset:
             return CombinedAsset([self] + other.assets)
         elif issubclass(type(other), Asset):
-            print(type(CombinedAsset))
             return CombinedAsset([self, other])
         else:
             raise NotImplementedError

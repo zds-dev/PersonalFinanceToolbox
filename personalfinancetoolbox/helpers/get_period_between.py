@@ -1,7 +1,7 @@
 from dateutil.relativedelta import relativedelta
 
 
-def get_period_between(date1, date2, period):
+def get_complete_periods_between(date1, date2, period):
     """
     Get the number of periods between two dates
     :param date1: the first date

@@ -1,9 +1,10 @@
-from models import *
+from personalfinancetoolbox.models import *
+from personalfinancetoolbox.functions import *
 import matplotlib.pyplot as plt
-import numpy as np
+from dateutil.relativedelta import relativedelta
 import datetime as dt
 
-predict_from =dt.datetime(2017, 1, 1)
+predict_from = dt.datetime(2017, 1, 1)
 predict_to = dt.datetime(2045, 1, 1)
 
 # A sample of the power of this code. Working on a student loan calculator - aim to decide whether it is

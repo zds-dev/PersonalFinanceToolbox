@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from .helpers import date_range
+from personalfinancetoolbox.helpers import date_range
 import numpy as np
 from dateutil.relativedelta import relativedelta
 

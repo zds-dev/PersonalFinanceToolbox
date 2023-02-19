@@ -33,7 +33,7 @@ class InterestAccruingPeriodic(Asset):
 
 class YearlyInterestAccruing(InterestAccruingPeriodic):
     """
-    Interest is accrued yearly
+    Interest is accrued yearly - example of how InterestAccruingPeriodic can be subclassed.
     """
     def __init__(self, name, value, interest, created_date):
         super().__init__(name, value, interest, created_date, 'yearly')

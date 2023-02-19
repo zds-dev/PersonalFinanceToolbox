@@ -1,5 +1,6 @@
 # Import base abstract class
 from .ValueHolding import ValueHolding
+from .ValueTimeseries import ValueTimeseries, ValueLimitedTimeseries
 
 # Import subclasses of abstract
 from .Asset import Asset

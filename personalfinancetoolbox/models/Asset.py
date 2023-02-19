@@ -20,7 +20,7 @@ class Asset(ValueHolding):
         if at_datetime < min(self.value.keys()):
             return 0
         # return minimum value at a datetime after at_datetime
-        return self.value[min([datetime for datetime in self.value.keys() if datetime >= at_datetime])]
+        return self.get_value_before(at_datetime)[0]
 
     def get_value_before(self, at_datetime):
         # exclusive of at datetime

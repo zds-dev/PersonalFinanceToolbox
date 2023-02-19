@@ -5,3 +5,4 @@ from .ValueHolding import ValueHolding
 from .Asset import Asset
 from .CombinedAsset import CombinedAsset
 from .InterestAccruingAsset import YearlyInterestAccruing
+from .Debt import Debt

@@ -14,7 +14,6 @@ class ValueTimeseries(UserDict):
 
 class ValueLimitedTimeseries(ValueTimeseries):
     def __init__(self, *args, min_value=None, max_value=None, **kwargs):
-        super().__init__(*args, **kwargs)
         if min_value is None:
             min_value = -float('inf')
         if max_value is None:
@@ -22,12 +21,12 @@ class ValueLimitedTimeseries(ValueTimeseries):
         self._min_value = min_value
         self._max_value = max_value
 
+        super().__init__(*args, **kwargs)
+
     def __setitem__(self, key, value):
         if value > self._max_value:
             raise ValueError('Value cannot be greater than {}'.format(self._max_value))
         if value < self._min_value:
             raise ValueError('Value cannot be less than {}'.format(self._min_value))
         super().__setitem__(key, value)
-
-
 

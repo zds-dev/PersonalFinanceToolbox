@@ -1,5 +1,6 @@
 from personalfinancetoolbox.models.CombinedAsset import CombinedAsset
 from personalfinancetoolbox.models.ValueHolding import ValueHolding
+from personalfinancetoolbox.models.ValueTimeseries import ValueTimeseries
 
 
 class Asset(ValueHolding):
@@ -7,7 +8,7 @@ class Asset(ValueHolding):
 
     def __init__(self, name, value, created_date):
         self.name = name
-        self.value = {created_date: value}
+        self.value = ValueTimeseries({created_date: value})
         self.id = self.__class__.assign_id()
 
     @classmethod

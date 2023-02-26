@@ -8,8 +8,13 @@ class Asset(ValueHolding):
 
     def __init__(self, name, value, created_date):
         self.name = name
-        self.value = ValueTimeseries({created_date: value})
+        self.value = ValueTimeseries({created_date: value}, repropogate_callback=self.repropagate_timeseries)
         self.id = self.__class__.assign_id()
+
+    def repropagate_timeseries(self, at_time):
+        for value_time in list(self.value.keys()):
+            if value_time > at_time:
+                self.value[value_time] = [self.get_value(value_time)+self.value.delta_value[value_time],self.value.delta_value[value_time]]
 
     @classmethod
     def assign_id(cls):

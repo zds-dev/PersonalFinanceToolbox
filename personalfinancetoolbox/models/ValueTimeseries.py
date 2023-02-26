@@ -9,8 +9,9 @@ class ValueTimeseries(UserDict):
     that stores the change in natural value from the previous datetime key - this may not be
     the same as the change in value from the previous datetime key as it is determined by the
     value dynamics defined by the object using this class."""
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, repropogate_callback=lambda x: None, **kwargs):
         self.delta_value = {}
+        self.recreate_timeseries_callback = repropogate_callback
         super().__init__(*args, **kwargs)
 
     def __setitem__(self, key, value):
@@ -20,6 +21,9 @@ class ValueTimeseries(UserDict):
         else:
             self.delta_value[key] = 0
         self.update_value(key, value)
+        if len(self.data.keys()) > 1:
+            if key < max(self.data.keys()):
+                self.recreate_timeseries_callback(key)
 
     def update_value(self, key, value):
         # Assert key is datetime and value is number

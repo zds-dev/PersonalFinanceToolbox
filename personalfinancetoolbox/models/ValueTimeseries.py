@@ -3,12 +3,21 @@ from datetime import datetime
 
 
 class ValueTimeseries(UserDict):
-    """A dictionary of datetime keys and number values.
+    """
+    A dictionary of datetime keys and number values - the number values represent the value of the
+    timeseries at this point. Best practice is to use a secondary value i.e [main_value, delta_value]
+    where delta_value is the change from the natural value of the timeseries at this point. This is
+    defined independently of the main value and is unaware of any value dynamics that apply to the main
+    value. This is important for recalculating the main value of the timeseries at any point in time.
 
-    Also contains a secondary data structure with the same keys as the main data structure
-    that stores the change in natural value from the previous datetime key - this may not be
-    the same as the change in value from the previous datetime key as it is determined by the
-    value dynamics defined by the object using this class."""
+    Since the main_value and delta_value are not aware of outside dynamics, when a delta_value is inserted
+    into the timeseries, before a time already in the timeseries, a callback is applied which notifies or
+    causes a calling or holding class to repropogate the timeseries from the new point onwards.
+
+    This uses the delta_values and recalculates the main values allowing for the outer class to be able to
+    use the main values as if they were the natural values of the timeseries.
+    """
+
     def __init__(self, *args, repropogate_callback=lambda x: None, **kwargs):
         self.delta_value = {}
         self.recreate_timeseries_callback = repropogate_callback
@@ -35,7 +44,9 @@ class ValueTimeseries(UserDict):
 
 
 class ValueLimitedTimeseries(ValueTimeseries):
-    """A ValueTimeseries with a minimum and maximum value."""
+    """
+    A modified ValueTimeseries with a minimum and maximum value.
+    """
     def __init__(self, *args, min_value=None, max_value=None, **kwargs):
         if min_value is None:
             min_value = -float('inf')

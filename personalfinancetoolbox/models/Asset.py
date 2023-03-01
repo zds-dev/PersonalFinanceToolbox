@@ -12,9 +12,11 @@ class Asset(ValueHolding):
         self.id = self.__class__.assign_id()
 
     def repropagate_timeseries(self, at_time):
-        for value_time in list(self.value.keys()):
+        for value_time in sorted(list(self.value.keys())):
+            # Works chronologically since currency dynamics happens in the direction of time.
             if value_time > at_time:
-                self.value[value_time] = [self.get_value(value_time)+self.value.delta_value[value_time],self.value.delta_value[value_time]]
+                self.value[value_time] = [self.get_value(value_time)+self.value.delta_value[value_time],
+                                          self.value.delta_value[value_time]]
 
     @classmethod
     def assign_id(cls):
